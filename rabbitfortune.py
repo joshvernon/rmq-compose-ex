@@ -27,21 +27,20 @@ parameters = pika.URLParameters(full_url)
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
-# Run the fortune-mod program to get a random message text
-# to publish.
-p = subprocess.Popen('fortune', stdout=subprocess.PIPE, universal_newlines=True)
-message, _ = p.communicate()
 my_routing_key='tributes'
 exchange_name='postal'
-
 channel.exchange_declare(exchange=exchange_name,
                          type='direct',
                          durable=True)
 
-
-channel.basic_publish(exchange=exchange_name,
-                      routing_key=my_routing_key,
-                      body=message)
+for i in range(11):
+    # Run the fortune-mod program to get a random message text
+    # to publish.
+    p = subprocess.Popen('fortune', stdout=subprocess.PIPE, universal_newlines=True)
+    message, _ = p.communicate()
+    channel.basic_publish(exchange=exchange_name,
+                          routing_key=my_routing_key,
+                          body=message)
 
 channel.close()
 connection.close()
