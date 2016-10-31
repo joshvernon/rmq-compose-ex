@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# rabbitfortune.py
+# rabbitconsume.py
 #
 # Adapted from here:
 # https://pika.readthedocs.io/en/0.10.0/examples/blocking_consume.html
